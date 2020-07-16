@@ -1,0 +1,91 @@
+type Curso {
+    _id: ID!
+    titulo: String!
+    profesor: String!
+    descripcion: String!
+    genero: String
+    asistentes: [Estudiante]
+}
+
+type Estudiante {
+    _id: ID!
+    nombre: String
+    email: String
+    clave: String
+
+}
+
+type Sala {
+    _id: ID!
+    nombre: String
+    clave: String
+}
+
+input CursoInput {
+    titulo: String
+    profesor: String
+    descripcion: String
+    genero: String
+}
+
+input EstudianteInput {
+    nombre: String
+    email: String
+    clave: String
+}
+
+input SalaInput {
+    nombre: String
+    clave: String
+}
+
+input loginInput {
+    email: String!
+    clave: String!
+}
+
+input CursoEditaInput {
+    #Cuando no quiere editar un dato, no se lo pone
+    titulo: String
+    profesor: String
+    descripcion: String
+    genero: String
+    asistentes: [ID]
+}
+
+input EstudianteEditaInput {
+    nombre: String
+    email: String
+    clave: String
+}
+
+input SalaEditaInput {
+    nombre: String
+    clave: String
+}
+
+type Query {
+    getCursos: [Curso]
+    getCurso(id: ID!): Curso
+    getEstudiantes: [Estudiante]
+    getEstudiante(id: ID!): Estudiante
+    getSalas: [Sala]
+    getSala(id: ID!): Sala
+}
+
+type Mutation {
+    nuevoCurso(input: CursoInput!): Curso
+    nuevoEstudiante(input: EstudianteInput!): Estudiante
+    nuevaSala(input: SalaInput!): Sala
+
+    editarCurso(id: ID!, input: CursoEditaInput): Curso
+    editarEstudiante(id: ID!, input: EstudianteEditaInput!): Estudiante
+    editarSala(id: ID!, input: SalaEditaInput!): Sala
+
+    borrarCurso(id: ID!): Boolean
+    borrarEstudiante(id: ID!): Boolean
+    borrarSala(id: ID!): Boolean
+
+    login(email: String, clave: String): Estudiante
+}
+
